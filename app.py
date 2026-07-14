@@ -215,7 +215,10 @@ Return ONLY the numeric ID (0, 1, 2, or 3). No explanation.
 
 Query: {state['query']}"""
     result = llm.invoke([HumanMessage(content=prompt)]).content.strip()
+    print("QUERY:", state["query"])
+    print("RAW INTENT:", repr(result))
     intent = re.search(r"[0-3]", result)
+    print("PARSED:", intent)
     return {"intent": intent.group(0) if intent else "3"}
 
 def router_node(state: OrderState):
