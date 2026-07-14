@@ -23,7 +23,7 @@ st.set_page_config(
 
 
 # Load the JSON file and extract values
-file_name = '/content/config.json'
+file_name = 'config.json'
 with open(file_name, 'r') as file:
     config = json.load(file)
     OPENAI_API_KEY = config.get("OPENAI_API_KEY") # Loading the API Key
