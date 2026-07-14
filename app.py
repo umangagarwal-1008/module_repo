@@ -200,7 +200,6 @@ def order_agent_node(state: OrderState):
         history=state["history"],
     )
 
-    st.write("ORDER AGENT RESPONSE:", final_response)
 
     return {
         "order_context": order_context,
@@ -222,10 +221,6 @@ Query: {state['query']}"""
 
     match = re.search(r"[0-3]", result)
     intent = match.group(0) if match else "3"
-
-    st.info(f"Query: {state['query']}")
-    st.info(f"Raw Intent: {repr(result)}")
-    st.info(f"Parsed Intent: {intent}")
 
     return {"intent": intent}
     
@@ -300,8 +295,6 @@ If the message contains:
 - Harassment or offensive tone
 - Privacy concerns or unsafe advice
 - Misunderstanding and miscommunication word
-- Phrases like "please contact customer service" or redirection to a human agent
-- Escalated this to our support team
 Return: BLOCK
 Otherwise, return: SAFE
 Response: {state["final_response"]}"""
