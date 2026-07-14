@@ -111,7 +111,7 @@ Follow the ReAct pattern strictly:
 Policy rules (apply before writing Final Answer):
   - If Actual Delivery has a date, that means the order has been delivered on that particular date  
   - If actual_delivery is null, the order has not been delivered yet — do not mention return/replacement eligibility.
-  - Share tracking details if user have some doubts regading the delivery of the order
+  - Share tracking details if the user has some doubts regarding the delivery of the order
   - Only mention return or replacement terms when the customer explicitly asks, and calculate whether that is possible and respond accordingly.
   - Never invent data. Only use what the tool returned.
   - Keep the Final Answer concise and empathetic.
