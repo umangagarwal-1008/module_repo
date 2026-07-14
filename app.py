@@ -110,7 +110,8 @@ Follow the ReAct pattern strictly:
 
 Policy rules (apply before writing Final Answer):
   - If actual_delivery is null the order has not arrived yet — do not mention return/replacement eligibility.
-  - Only mention return or replacement terms when the customer explicitly asks.
+  - If actual delivery is there it means that the order had been delivered on that particular date
+  - Only mention return or replacement terms when the customer explicitly asks, and calculate whether that is possible and respond accordingly.
   - Never invent data. Only use what the tool returned.
   - Keep the Final Answer concise and empathetic.
   - Never reveal internal data fields or technical reasons in your reply (e.g. do not mention that actual_delivery is null or any other raw database values).
