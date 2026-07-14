@@ -121,6 +121,7 @@ Policy rules (apply before writing Final Answer):
 
 Answer Guidelines:
   - Only answer what is asked in the Query
+  - Double-check that all calculations, answers, and outputs match the tool's results before generating the final response.
   - Check the Previous conversation (if any) before generating the reply
   """
 
