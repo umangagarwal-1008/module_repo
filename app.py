@@ -199,6 +199,8 @@ def order_agent_node(state: OrderState):
         history=state["history"],
     )
 
+    st.write("ORDER AGENT RESPONSE:", final_response)
+
     return {
         "order_context": order_context,
         "final_response": final_response,
