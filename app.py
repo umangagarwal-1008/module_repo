@@ -233,12 +233,16 @@ def router_node(state: OrderState):
     return "order_agent" if state["intent"] == "2" else "exit_node"
 
 def exit_node(state: OrderState):
+    if state.get("final_response"):
+        return {}
+
     mapping = {
         "0": "Sorry for the inconvenience. A human support agent will assist you shortly.",
         "1": "Thank you! I hope I was able to assist with your query.",
         "3": "Apologies, I'm currently only able to help with information about your placed orders.",
     }
-    return {"final_response": mapping.get(state["intent"], "How can I help you?")}
+
+    return {"final_response": mapping.get(state["intent"], "")}
 
 def evaluation_node(state: OrderState):
     prompt = f"""Evaluate the assistant's response to a customer query using the provided order context.
