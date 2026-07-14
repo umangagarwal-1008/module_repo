@@ -56,6 +56,7 @@ class OrderState(TypedDict):
     evaluation:       Dict[str, float]
     guard_result:     str
     conv_guard_result: str
+    retry_count: int
 
 # ── Conversation memory ───────────────────────────────────────────────────────
 class ConversationMemory:
@@ -196,7 +197,12 @@ def order_agent_node(state: OrderState):
         order_id=state["order_id"],
         history=state["history"],
     )
-    return {"order_context": order_context, "final_response": final_response}
+
+    return {
+        "order_context": order_context,
+        "final_response": final_response,
+        "retry_count": state["retry_count"] + 1,
+    }
 
 def intent_node(state: OrderState):
     prompt = f"""You are an intent classifier for customer service queries. Classify the user's query into one of these categories.
@@ -257,8 +263,18 @@ Return ONLY JSON:
 
 def retry_router(state: OrderState):
     score = state.get("evaluation", {})
-    if score.get("groundedness", 0) < 0.75 or score.get("precision", 0) < 0.75:
+    retry_count = state.get("retry_count", 0)
+
+    # Stop retrying after 3 attempts
+    if retry_count >= 3:
+        return "safety_check"
+
+    if (
+        score.get("groundedness", 0) < 0.75
+        or score.get("precision", 0) < 0.75
+    ):
         return "order_agent"
+
     return "safety_check"
 
 def guard_node(state: OrderState):
@@ -386,6 +402,7 @@ def run_turn(query: str, cust_id: str, order_id: str) -> str:
         "evaluation":        {},
         "guard_result":      "",
         "conv_guard_result": "",
+        "retry_count": 0,
     }
     result = order_graph.invoke(state, config={"recursion_limit": 100})
     # Sync memory from the graph's memory_node writes
