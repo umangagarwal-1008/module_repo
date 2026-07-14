@@ -136,7 +136,6 @@ def extract_json_from_llm(text: str):
 
 # ── Order agent ───────────────────────────────────────────────────────────────
 def order_agent(query: str, order_id: str, history: list) -> tuple:
-    today = date.today().strftime("%d %B %Y")
     llm_with_tools = llm.bind_tools([fetch_order_details])
 
     history_text = ""
@@ -149,7 +148,7 @@ def order_agent(query: str, order_id: str, history: list) -> tuple:
         f"Previous Conversation:{history_text}\n"
         f"Customer query: {query}\n"
         f"Order ID: {order_id}\n"
-        f"Today's date: {today}"
+        f"Today's date: 25 July"
     )
 
     messages = [
