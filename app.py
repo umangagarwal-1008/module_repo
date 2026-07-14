@@ -216,17 +216,20 @@ Return ONLY the numeric ID (0, 1, 2, or 3). No explanation.
 
 Query: {state['query']}"""
     result = llm.invoke([HumanMessage(content=prompt)]).content.strip()
-    intent = re.search(r"[0-3]", result)
+
+    match = re.search(r"[0-3]", result)
+    intent = match.group(0) if match else "3"
 
     st.info(f"Query: {state['query']}")
     st.info(f"Raw Intent: {repr(result)}")
     st.info(f"Parsed Intent: {intent}")
-    return {"intent": intent.group(0) if intent else "3"}
 
+    return {"intent": intent}
+    
 def router_node(state: OrderState):
     return "order_agent" if state["intent"] == "2" else "exit_node"
 
-def exit_node(state: OrderState):
+def exit_node(state: Ordertate):
     mapping = {
         "0": "Sorry for the inconvenience. A human support agent will assist you shortly.",
         "1": "Thank you! I hope I was able to assist with your query.",
