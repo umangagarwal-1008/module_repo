@@ -229,7 +229,7 @@ Query: {state['query']}"""
 def router_node(state: OrderState):
     return "order_agent" if state["intent"] == "2" else "exit_node"
 
-def exit_node(state: Ordertate):
+def exit_node(state: Orderstate):
     mapping = {
         "0": "Sorry for the inconvenience. A human support agent will assist you shortly.",
         "1": "Thank you! I hope I was able to assist with your query.",
