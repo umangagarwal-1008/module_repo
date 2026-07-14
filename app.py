@@ -110,7 +110,7 @@ Follow the ReAct pattern strictly:
 
 Policy rules (apply before writing Final Answer):
   - If actual_delivery is null, the order has not arrived yet — do not mention return/replacement eligibility.
-  - If actual delivery is there, it means that the order had been delivered on that particular date
+  - Actual Delivery Date indicates the date on which the order was delivered. If this field is blank, the order has not yet been delivered.
   - Only mention return or replacement terms when the customer explicitly asks, and calculate whether that is possible and respond accordingly.
   - Never invent data. Only use what the tool returned.
   - Keep the Final Answer concise and empathetic.
@@ -121,7 +121,6 @@ Policy rules (apply before writing Final Answer):
 
 Answer Guidelines:
   - Only answer what is asked in the Query
-  - Double check the expected and actual delivery date before answering anything
   - Check the Previous conversation (if any) before generating the reply
   """
 
